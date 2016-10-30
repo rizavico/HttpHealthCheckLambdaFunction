@@ -1,0 +1,8 @@
+{
+  "name": "HttpHealthCheckLambdaFunction",
+  "version": "0.0.1",
+  "description": "Lambda function triggered by CodePipeline to call a URL and check for a successful response.",
+  "main": "index.js",
+  "author": "Ali Rizavi",
+  "license": "MIT"
+}
