@@ -10,20 +10,18 @@ index.js is a Lambda function to be used as a custom action in CodePipeline for 
 
 ## Instructions
 
-1. Clone this repo
+1. Copy the code from index.js to AWS Lambda Function - Inline Code Editor.
 
-  `git clone https://github.com/rizavico/HttpHealthCheckLambdaFunction.git`
+2. Upload the Lambda function zip archive to AWS Lambda Service using AWS Console.
 
-2. cd to the cloned repo:
-
-  `cd HttpHealthCheckLambdaFunction`
-
-3. zip up the required files for the Lambda function:
-
-  `zip -r HttpHealthCheckLambdaFunction.zip index.js`
-
-4. Upload the Lambda function zip archive to AWS Lambda Service using AWS Console.
-
-5. In your CodePipeline, add a new action that invokes this Lambda function. You should specific the following as UserParameters:
+3. In your CodePipeline, add a new action that invokes this Lambda function. You should specific the following as UserParameters:
 
   `{ "url":"http://url-to-test.com", "content":"Must-contain-this-string-to-succeed"}`
+  
+## Tip
+You can use the lambda-test-event.json to test your Lambda function in the AWS Lambda Inline Code Editor. 
+
+* Go to Lambda Code Editor
+* Navigate to Actions > Configure Test Event > Paste the contents of the json file
+* Modify the UserParameters
+* Test

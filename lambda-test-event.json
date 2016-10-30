@@ -1,0 +1,33 @@
+{
+  "CodePipeline.job": {
+    "id": "11111111-abcd-1111-abcd-111111abcdef",
+    "accountId": "111111111111",
+    "data": {
+      "actionConfiguration": {
+        "configuration": {
+          "FunctionName": "MyLambdaFunctionForAWSCodePipeline",
+          "UserParameters": "{\"url\":\"http://www.rizavi.co/\",\"content\":\"rizavi\"}"
+        }
+      },
+      "inputArtifacts": [
+        {
+          "location": {
+            "s3Location": {
+              "bucketName": "codepipeline-us-east-1-SOMETHING",
+              "objectKey": "SomeObjectKey.zip"
+            },
+            "type": "S3"
+          },
+          "revision": null,
+          "name": "MyApp"
+        }
+      ],
+      "outputArtifacts": [],
+      "artifactCredentials": {
+        "secretAccessKey": "SECRET-ACCESS-KEY",
+        "accessKeyId": "ACCESS-KEY-ID"
+      },
+      "continuationToken": "A continuation token if continuing job"
+    }
+  }
+}
