@@ -1,10 +1,14 @@
 // CodePipeline should have the following "UserParameters":
 //  'url' : URL to call
 //  'content' : The body from HTTP response must contain this string for the test to pass of desination bucket for the S3 static website.
+//  'topicArn' : SNS Topic to send failure notifications
 
 var assert = require('assert');
 var AWS = require('aws-sdk');
 var http = require('http');
+
+const EMAIL = 'auto@rizavi.co';
+const SNS = new AWS.SNS({ apiVersion: '2010-03-31' });
 
 exports.handler = function(event, context) {
 
@@ -17,6 +21,7 @@ exports.handler = function(event, context) {
     var userParameters = JSON.parse(jobData.actionConfiguration.configuration.UserParameters);
     var url = userParameters.url;
     var content = userParameters.content;
+    var topicArn = userParameters.topicArn;
     
     // Retrieve the value of UserParameters from the Lambda action configuration in AWS CodePipeline, in this case a URL which will be
     // health checked by this function.
@@ -101,7 +106,20 @@ exports.handler = function(event, context) {
             putJobSuccess("Tests passed.");
         } catch (ex) {
             // If any of the assertions failed then fail the job
-            putJobFailure(ex);    
+            const params = {
+                Message: "URL: "+url+" -- check didn't succeed. \nPlease address the issue ASAP.",
+                Subject: "Failed Health Check.",
+                TopicArn: topicArn,
+            };
+            
+            SNS.publish(params, function(err, data) {
+                if(err) {
+                    console.error('error publishing to SNS');
+                } else {
+                    console.info('message published to SNS');
+                }
+                putJobFailure(ex);
+            });
         }
     });     
 };
