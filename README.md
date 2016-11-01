@@ -16,7 +16,7 @@ index.js is a Lambda function to be used as a custom action in CodePipeline for 
 
 3. In your CodePipeline, add a new action that invokes this Lambda function. You should specific the following as UserParameters:
 
-  `{ "url":"http://url-to-test.com", "content":"Must-contain-this-string-to-succeed"}`
+  `{ "url":"http://url-to-test.com", "content":"Must-contain-this-string-to-succeed", "topicArn": "SNS-TOPIC-ARN-TO-NOTIFY-FOR-FAILURES"}`
   
 ## Tip
 You can use the lambda-test-event.json to test your Lambda function in the AWS Lambda Inline Code Editor. 
